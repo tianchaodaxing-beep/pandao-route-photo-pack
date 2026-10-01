@@ -1,0 +1,15 @@
+{
+  "name": "pandao-route-photo-pack",
+  "version": "0.1.0",
+  "description": "Turn geotagged inspection photos into a route station handoff packet.",
+  "type": "module",
+  "bin": { "route-photo-pack": "bin/pack.mjs" },
+  "exports": { ".": "./docs/core.mjs", "./exif": "./docs/exif.mjs" },
+  "files": ["bin", "docs", "README.md", "LICENSE", "CHANGELOG.md"],
+  "scripts": { "test": "node --test", "example": "node bin/pack.mjs --route docs/samples/route.geojson --photos docs/samples/photos --out demo-output" },
+  "engines": { "node": ">=22" },
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/tianchaodaxing-beep/pandao-route-photo-pack.git" },
+  "author": "PANDAO <tianchaodaxing@gmail.com>",
+  "keywords": ["inspection", "chainage", "geotag", "route", "handoff"]
+}

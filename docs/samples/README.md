@@ -1,0 +1,1 @@
+These nine illustrative JPEGs and their GPS coordinates are synthetic. They demonstrate located photos, a crossing with two possible stations, an off-route photo and a photo without GPS. The route is not an approved engineering alignment.

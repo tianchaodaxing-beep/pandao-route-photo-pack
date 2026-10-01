@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Turn geotagged inspection photos into station-named copies, a printable photo register and a route coverage list. Process files locally.">
+  <title>Route Photo Pack — From field photos to a route handoff</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="masthead"><a class="brand" href="#">PANDAO <span>FIELD TOOLS</span></a><nav><a href="https://github.com/tianchaodaxing-beep/pandao-route-photo-pack">Source</a><a href="https://github.com/tianchaodaxing-beep/pandao-route-photo-pack/releases/tag/v0.1.0">Download CLI</a></nav></header>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">ROADS · PIPELINES · POWER LINES</p><h1>The photos are taken.<br>Now finish the handoff.</h1><p class="lede">Drop in your route and inspection photos. Get station-named copies, a printable photo register and a list of intervals without photos.</p><div class="intro-actions"><button id="sample" class="primary">Load field example</button><a href="#workspace" class="text-link">Use your own files ↓</a></div><p class="privacy">Your files stay in this browser. No account or upload to a server.</p></div>
+      <div class="handoff" aria-label="Photo handoff example"><div class="folder-tab">FIELD CAMERA</div><div class="raw-photo"><span>IMG_0001.jpg</span><svg viewBox="0 0 320 110" aria-hidden="true"><path d="M0 94L70 32L128 85L210 25L320 95V110H0Z" fill="#bfd0d9"/><path d="M135 110L164 35L203 110" fill="#8a9da7"/><path d="M164 49L170 69M177 83L184 103" stroke="#ffe08a" stroke-width="3"/></svg></div><div class="station-arrow">↓</div><div class="output-name"><span class="station-tag">12+080</span><b>photos/12-080_left_0001…jpg</b><span>Photo register · Coverage list · Review queue</span></div></div>
+    </section>
+    <section id="workspace" class="workspace" aria-label="Route photo workspace">
+      <div class="work-head"><div><p class="eyebrow">ROUTE HANDOFF</p><h2>Finish a photo batch</h2></div><span id="mode" class="mode">Select files or load the example</span></div>
+      <div class="inputs">
+        <label class="file-pick"><span class="step">1</span><span><b>Route</b><small id="route-name">One GeoJSON LineString</small></span><input id="route-input" type="file" accept=".geojson,.json,application/geo+json,application/json"></label>
+        <label class="file-pick"><span class="step">2</span><span><b>Inspection photos</b><small id="photo-count">JPEG files with GPS</small></span><input id="photos-input" type="file" accept=".jpg,.jpeg,image/jpeg" multiple></label>
+        <button id="build" class="primary" disabled>Build photo packet</button>
+      </div>
+      <div class="settings">
+        <label>Start station (m)<input id="start" type="number" value="0" min="0" max="1000000000" step="1"></label>
+        <label>Distance limit (m)<input id="offset" type="number" value="30" min="1" max="1000" step="1"></label>
+        <label>Coverage interval (m)<input id="interval" type="number" value="100" min="10" max="10000" step="1"></label>
+        <p id="basis">If the route supplies engineering stations, those stations take precedence.</p>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite">Choose a route and photos to build a packet.</p>
+      <div id="results" hidden>
+        <div class="result-bar"><div class="counts"><span><strong id="located">0</strong> located</span><span><strong id="review">0</strong> need review</span><span><strong id="empty">0</strong> intervals without photos</span></div><button id="download" class="primary" disabled>Download photo packet</button></div>
+        <div class="route-layout"><div class="route-panel"><div class="panel-heading"><h3 id="route-title">Route</h3><span id="range"></span></div><svg id="route-map" viewBox="0 0 650 380" role="img" aria-label="Route and photo positions"></svg><div class="legend"><span class="legend-located">Located</span><span class="legend-review">Needs review</span><span class="legend-route">Route direction →</span></div><div class="coverage-heading"><h3>Photo coverage</h3><span id="interval-caption"></span></div><div id="coverage-strip" class="coverage-strip"></div><p class="small">Colored intervals contain a located photo. Empty intervals are a prompt to check your photo set.</p></div><div class="photo-panel"><div class="panel-heading"><h3>Selected photo</h3><span id="photo-id"></span></div><img id="selected-image" alt="Selected inspection photo"><div id="photo-details"></div></div></div>
+        <div class="register-heading"><h3>Photo register</h3><div class="filters" role="group" aria-label="Filter photos"><button data-filter="all" class="active">All</button><button data-filter="located">Located</button><button data-filter="review">Needs review</button></div></div>
+        <div class="table-wrap"><table><thead><tr><th>Photo</th><th>Station</th><th>Distance</th><th>Result</th></tr></thead><tbody id="photo-rows"></tbody></table></div>
+      </div>
+    </section>
+    <section class="delivery"><div><p class="eyebrow">ONE PACKET, READY TO SHARE</p><h2>Open the ZIP.<br>Open the photo register.</h2></div><div class="deliverables"><div><b>Station-named photo copies</b><p>Located photos go into a route-ordered folder. Photos needing a decision stay in the review folder.</p></div><div><b>A photo register you can print</b><p>Open index.html after extracting the ZIP. Browse the images or print the register to PDF.</p></div><div><b>Lists for your next step</b><p>Photo positions, intervals without photos and a review list in CSV. GeoJSON for your GIS.</p></div></div></section>
+    <section class="scope"><p>Use one continuous route in WGS84 longitude and latitude. GPS and surface-distance stations are approximate; confirm engineering stations against your approved alignment. Coverage describes photos, not inspection completion. JPEG only; export HEIC photos to JPEG while preserving GPS before importing.</p><p id="sample-note" hidden>The field example contains nine illustrative images with simulated GPS, including an ambiguous crossing, an off-route photo and a photo without GPS.</p></section>
+  </main>
+  <footer><span>Route Photo Pack · 0.1.0 · MIT</span><a href="mailto:tianchaodaxing@gmail.com">tianchaodaxing@gmail.com</a><a href="https://tianchaodaxing-beep.github.io/pandao-open-tools/">More tools</a></footer>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>
